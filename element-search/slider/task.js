@@ -6,13 +6,9 @@ const sliderDots = [...document.querySelectorAll(".slider__dot")];
 
 document.querySelector(".slider__dot").classList.toggle("slider__dot_active");
 
-function activate(index) {
-  sliderItems[index].classList.add("slider__item_active");
-  sliderDots[index].classList.add("slider__dot_active");
-}
-function deactivate(index) {
-  sliderItems[numberSlide].classList.remove("slider__item_active");
-  sliderDots[numberSlide].classList.remove("slider__dot_active");
+function activate_deactivate(index) {
+  sliderItems[index].classList.toggle("slider__item_active");
+  sliderDots[index].classList.toggle("slider__dot_active");
 }
 
 function check(value) {
@@ -27,14 +23,15 @@ function check(value) {
 }
 
 function step() {
-  deactivate(numberSlide);
-  let value = this.classList.contains("slider__arrow_prev") ? -1 : 1;
-  activate(check(value));
+  activate_deactivate(numberSlide);
+  activate_deactivate(
+    check(this.classList.contains("slider__arrow_prev") ? -1 : 1)
+  );
 }
 
 function dot_active(index) {
-  deactivate(numberSlide);
-  activate(index);
+  activate_deactivate(numberSlide);
+  activate_deactivate(index);
   numberSlide = index;
 }
 
