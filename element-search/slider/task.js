@@ -1,41 +1,48 @@
+let numberSlide = 0;
 const sliderItems = [...document.querySelectorAll(".slider__item")];
-let counter = 0;
+const sliderArrowsPrev = document.querySelector(".slider__arrow_prev");
+const sliderArrowsNext = document.querySelector(".slider__arrow_next");
+const sliderDots = [...document.querySelectorAll(".slider__dot")];
 
-sliderArrowsPrev = document.querySelector(".slider__arrow_prev");
-sliderArrowsNext = document.querySelector(".slider__arrow_next");
-sliderDots = [...document.querySelectorAll(".slider__dot")];
+document.querySelector(".slider__dot").classList.toggle("slider__dot_active");
+
+function activate(index) {
+  sliderItems[index].classList.add("slider__item_active");
+  sliderDots[index].classList.add("slider__dot_active");
+}
+function deactivate(index) {
+  sliderItems[numberSlide].classList.remove("slider__item_active");
+  sliderDots[numberSlide].classList.remove("slider__dot_active");
+}
+
+function check(value) {
+  if (numberSlide + value > sliderItems.length - 1) {
+    numberSlide = 0;
+  } else if (numberSlide + value < 0) {
+    numberSlide = sliderItems.length - 1;
+  } else {
+    numberSlide += value;
+  }
+  return numberSlide;
+}
 
 function step() {
-  sliderItems.forEach((element) =>
-    element.classList.toggle("slider__item_active", false)
-  );
-
+  deactivate(numberSlide);
   let value = this.classList.contains("slider__arrow_prev") ? -1 : 1;
-
-  if (counter === 0 && value === -1) {
-    counter = 4;
-  } else if (counter === 4 && value === 1) {
-    counter = 0;
-  } else {
-    counter += value;
-  }
-
-  sliderItems[counter].classList.toggle("slider__item_active");
+  activate(check(value));
 }
 
 function dot_active(index) {
-  sliderItems.forEach((element) =>
-    element.classList.remove("slider__item_active")
-  );
-  sliderItems[index].classList.toggle("slider__item_active");
-  counter = index;
+  deactivate(numberSlide);
+  activate(index);
+  numberSlide = index;
 }
+
+sliderArrowsPrev.onclick = step;
+sliderArrowsNext.onclick = step;
 
 sliderDots.forEach((element, index) => {
   element.onclick = () => {
     dot_active(index);
   };
 });
-
-sliderArrowsPrev.onclick = step;
-sliderArrowsNext.onclick = step;

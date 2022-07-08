@@ -14,11 +14,19 @@ function cleanMenu() {
 menuLink.forEach((element) => {
   element.onclick = () => {
     parent = element.closest(".menu__item");
-    cleanMenu();
 
     if (parent.querySelector(".menu_sub")) {
-      parent.querySelector(".menu_sub").classList.toggle("menu_active");
+      if (
+        !parent.querySelector(".menu_sub").classList.contains("menu_active")
+      ) {
+        cleanMenu();
+        parent.querySelector(".menu_sub").classList.toggle("menu_active");
+      } else {
+        parent.querySelector(".menu_sub").classList.toggle("menu_active");
+      }
       return false;
+    } else {
+      cleanMenu();
     }
   };
 });
