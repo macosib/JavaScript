@@ -16,14 +16,15 @@ class Game {
     this.lossElement.textContent = 0;
   }
 
+
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-     */
+    document.addEventListener('keydown', (e) => {
+      if (this.currentSymbol.textContent.toLowerCase() === e.key.toLowerCase()) {
+        this.success()
+        return
+      }
+      this.fail()
+    })
   }
 
   success() {
@@ -33,7 +34,7 @@ class Game {
       return;
     }
 
-    if (++this.winsElement.textContent === 10) {
+    if (++ this.winsElement.textContent === 10) {
       alert('Победа!');
       this.reset();
     }
@@ -41,7 +42,7 @@ class Game {
   }
 
   fail() {
-    if (++this.lossElement.textContent === 5) {
+    if (++ this.lossElement.textContent === 5) {
       alert('Вы проиграли!');
       this.reset();
     }
@@ -74,12 +75,9 @@ class Game {
   }
 
   renderWord(word) {
-    const html = [...word]
-      .map(
-        (s, i) =>
-          `<span class="symbol ${i === 0 ? 'symbol_current': ''}">${s}</span>`
-      )
-      .join('');
+    const html = [...word].map((s, i) => `<span class="symbol ${
+      i === 0 ? 'symbol_current' : ''
+    }">${s}</span>`).join('');
     this.wordElement.innerHTML = html;
 
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
@@ -87,4 +85,3 @@ class Game {
 }
 
 new Game(document.getElementById('game'))
-
