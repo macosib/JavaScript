@@ -6,7 +6,7 @@ chatWidget.addEventListener('click', () => {
   chatWidget.classList.add('chat-widget_active');
 });
 
-input = chatWidget.querySelector('.chat-widget__input');
+const input = chatWidget.querySelector('.chat-widget__input');
 
 function getRandomWord() {
   randomIndex = Math.floor(Math.random() * answers.length);
