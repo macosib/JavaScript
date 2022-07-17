@@ -9,7 +9,7 @@ chatWidget.addEventListener('click', () => {
 const input = chatWidget.querySelector('.chat-widget__input');
 
 function getRandomWord() {
-  randomIndex = Math.floor(Math.random() * answers.length);
+  let randomIndex = Math.floor(Math.random() * answers.length);
   return answers[randomIndex];
 }
 
