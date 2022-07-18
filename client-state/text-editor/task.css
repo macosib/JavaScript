@@ -3,8 +3,19 @@ textarea {
   width: 100%;
   display: block;
   padding: 10px 20px;
-  margin: 0 0 20px 0;
+  margin: 0 auto;
   font-family: Golos, Arial, sans-serif;
   border: 1px solid #e2e2e2;
   box-sizing: border-box;
+  background-color: azure;
+}
+
+.button {
+  margin-top: 10px;
+  background-color: chocolate;
+}
+
+.button:hover {
+  margin-top: 10px;
+  background-color: cornflowerblue;
 }
