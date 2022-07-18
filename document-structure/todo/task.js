@@ -1,6 +1,6 @@
-const input = document.querySelector('.tasks__input');
-const tasksList = document.querySelector('.tasks__list');
-const button = document.querySelector('.tasks__add');
+const input = document.querySelector(".tasks__input");
+const tasksList = document.querySelector(".tasks__list");
+const button = document.querySelector(".tasks__add");
 
 function addNewTask(text) {
   return `<div class="task">
@@ -11,17 +11,18 @@ function addNewTask(text) {
 
 function newTask(e) {
   e.preventDefault();
-  text = input.value;
-  if (text) {
-    tasksList.insertAdjacentHTML('beforeend', addNewTask(input.value));
+  const text = input.value;
+  if (text.trim()) {
+    tasksList.insertAdjacentHTML("beforeend", addNewTask(input.value));
   }
+  input.value = "";
 }
 
 function removeTask(e) {
-  if (e.target.classList.contains('task__remove')) {
+  if (e.target.classList.contains("task__remove")) {
     e.target.parentNode.remove();
   }
 }
 
-button.addEventListener('click', newTask);
-tasksList.addEventListener('click', removeTask);
+button.addEventListener("click", newTask);
+tasksList.addEventListener("click", removeTask);

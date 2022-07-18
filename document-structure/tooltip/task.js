@@ -1,31 +1,41 @@
-const links = [...document.querySelectorAll('.has-tooltip')];
+const links = [...document.querySelectorAll(".has-tooltip")];
+let tooltip;
 
 links.forEach((element) => {
-  element.addEventListener('click', setPopup);
-  element.insertAdjacentHTML('afterend', getHtmlElement(element.title));
+  element.addEventListener("click", showTooltip);
 });
 
 function getHtmlElement(text) {
   return `<div class="tooltip">${text}</div>`;
 }
 
-function hidePopup() {
-  tooltipActive = [...document.querySelectorAll('.tooltip_active')];
-  tooltipActive.forEach((element) => {
-    element.classList.remove('tooltip_active');
-  });
+function setPosition(element) {
+  let position = element.getBoundingClientRect();
+  tooltip.innerText = element.title;
+  tooltip.style.left = `${position.left}px`;
+  tooltip.style.top = `${position.bottom}px`;
 }
 
-function setPopup(e) {
-  if (e.target.nextSibling.classList.contains('tooltip_active')) {
-    hidePopup();
+function addTooltip(element, create = true) {
+  if (!create) {
+    element.insertAdjacentHTML("afterend", getHtmlElement(element.title));
+    tooltip = document.querySelector(".tooltip");
+  }
+  setPosition(element);
+  if (!tooltip.classList.contains("tooltip_active")) {
+    tooltip.classList.toggle("tooltip_active");
+  }
+}
+
+function tooltipActivate() {}
+
+function showTooltip(e) {
+  if (tooltip && tooltip.innerText === e.target.title) {
+    tooltip.classList.toggle("tooltip_active");
+  } else if (tooltip) {
+    addTooltip(e.target);
   } else {
-    hidePopup();
-    tooltip = e.target.nextSibling;
-    tooltip.classList.toggle('tooltip_active');
-    position = e.target.getBoundingClientRect();
-    tooltip.style.left = `${position.left}px`;
-    tooltip.style.top = `${position.bottom}px`;
+    addTooltip(e.target, false);
   }
   e.preventDefault();
 }
