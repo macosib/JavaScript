@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Угадай число</p>
+    <script>
+        const randomNumber = Math.floor(Math.random() * 1000);
+        console.log(`"Загаданное число": ${randomNumber}`);
+        let userNumber;
+        while (+userNumber !== randomNumber) {
+            userNumber = prompt("Введите число от 0 до 1000, для выхода введите 'quit'");
+            console.log(`"Вы назвали число": ${userNumber}`);
+            if (userNumber == 'quit') {
+                break
+            }
+                else if (isNaN(userNumber) || (+userNumber < 0 || +userNumber > 1000)) {
+                    alert("Некорректный ввод данных");
+            }
+                else if (userNumber > randomNumber){
+                    alert("Ваше число больше, попытайтесь еще раз!");
+            }
+                else if (userNumber < randomNumber){
+                    alert("Ваше число меньше, попытайтесь еще раз!");
+            }
+                else {
+                    alert(`"Вы угадали!"`);
+            }
+    } 
+    </script>
+</body>
+</html>
